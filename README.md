@@ -243,7 +243,64 @@ public static boolean buscar(int e, int[] array) {
 }
 ```
 
-Analizamos los 3 casos: 
+Analizamos los 3 casos:
 - Caso **mejor**: Encontramos el elemento en la primera posicion = recorrerá unicamente un elemento, **complejidad O(1)**, tiempo constante.
 - Caso **promedio**: Encontramos el elemento en la mitad = recorrerá n/2 elementos, **complejidad O(n)**, tiempo constante. (En Big O notation, **O(n/2)** se simplifica a **O(n)**)
 - Caso **peor**: Encontramos el elemento en la ultima posicion = recorrerá todos los elementos de la lista, **complejidad O(n)**
+
+### Ejercicio 45
+
+> Escriba un algoritmo recursivo para buscar un número en un array ordenado de enteros. Su cabecerá será la misma que la del ejercicio 44. Calcule su complejidad en el caso peor.
+
+
+```
+private static boolean buscar(int e, int[] array, int index) {
+    if (index >= array.length) {
+        return false;
+    }
+
+    if (array[index] == e) {
+        return true;
+    }
+    return buscarRecursivo(e, array, index + 1);
+}
+```
+
+**Caso peor**: cuando el elemento no está en el array o está al final, se recorre el array **únicamente 1 vez**, y se hace una comparacion constante sin más, con lo cual la compejidad sería de **O(n)** .
+
+Si queremos dejar estrictamente la misma cabecera como el ejercicio anterior (**yo personalmente no lo haría de esta manera**), el método quedaría así:
+
+```
+public static boolean buscar(int e, int[] array) {
+    if (array.length == 0) {
+        return false;
+    }
+    if (array[0] == e) {
+        return true;
+    }
+
+    int[] nuevoArray = new int[array.length - 1];
+    System.arraycopy(array, 1, nuevoArray, 0, array.length - 1);
+
+    return buscar(e, nuevoArray);
+}
+```
+
+Si lo hacemos de esta manera, el **peor caso** es cuando el elemento no está en el array o está al final, y **se crea un nuevo array** en cada llamada recursiva, lo que genera una complejidad **O(n^2)**.
+
+### Ejercicio 46
+
+> Calcule las complejidades temporal y espacial del algoritmo recursivo para calcular el elemento n-ésimo de la sucesión de Fibonacci.
+
+```
+public static int fibonacci(int n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+```
+
+El número total de llamadas recursivas crece exponencialmente con **n**. La complejidad temporal en el caso peor es **O(2^n)** (en cada llamada se hacen 2 llamadas recursivas y es ineficiente para valores grandes de n)
+
+
