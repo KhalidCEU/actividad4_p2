@@ -303,4 +303,167 @@ public static int fibonacci(int n) {
 
 El número total de llamadas recursivas crece exponencialmente con **n**. La complejidad temporal en el caso peor es **O(2^n)** (en cada llamada se hacen 2 llamadas recursivas y es ineficiente para valores grandes de n)
 
+### Ejercicio 47
 
+
+> Se tiene el siguiente método:
+
+```
+public static int sumaNPrimeros(int n) {
+    int suma = 0;
+    for (int i = 1; i <= n; i++) {
+        suma += i;
+    }
+    return suma;
+}
+```
+> Utilizando el profiler de Netbeans se han medido los tiempos de ejecución
+de diferentes llamadas al método (véase el cuadro 1). Explique los resultados
+
+El **tiempo de ejecución** del metodo **sumaNPrimeros(n)** aumenta aproximadamente de forma **lineal** con el tamaño de la entrada debido a su **complejidad temporal O(n)**, lo que se refleja en los resultados del profiler.
+
+
+### Ejercicio 48
+
+> Se tiene el siguiente método:
+
+```
+public static int sumaNMPrimeros(int n) {
+    int suma = 0;
+    for (int i = 1; i <= n; i++) {
+        for(int j = 1; j <= i; j++)
+            suma += j;
+    }
+    return suma;
+}
+```
+> Utilizando el profiler de Netbeans se han medido los tiempos de ejecución
+de diferentes llamadas al método (véase el cuadro 2). Explique los resultados
+
+
+El metodo **sumaNMPrimeros(n)** tiene una **complejidad temporal de O(n^2)** debido a sus **bucles anidados**, lo que explica el crecimiento cuadrático en los tiempos de ejecución. A medida que n aumenta **x 10**, el tiempo de ejecución tambien aumenta.
+
+
+### Ejercicio 49
+
+> Explique la definición que se muestra a continuación
+Sean dos funciones T : N → N y f : N → N. Se dice que T (n) es de orden
+f (n), y se escribe T (n) ∈ O(f (n)), si y sólo si existen dos números naturales
+k y n0 tales que, para todo m, también natural, que cumpla m > n0, entonces
+T (m) ≤ k · f (m)
+
+
+Esta definicion describe la **Big O notation** que hemos visto hasta ahora para poder medir la **complejidad temporal** de los algoritmos según su **comportamiento** para **entradas grandes**.
+
+Nos explica que **T(n)** es de orden **f(n)** si existe una **constante k** y un **valor n0** a partir del cual **T(n)** **nunca supera** `k * f(n)` para **todos** los **valores de n mayores que n0**.
+
+Es decir, podemos ver **f(n)** como el **límite superior asintótico** para **T(n)**, permitiendo comparar el comportamiento de diferentes algoritmos para entradas grandes.
+
+### Ejercicio 50
+
+> Asumiendo la definición del ejercicio 48, se pide
+
+> 1 . Encontrar k y n0 que muestren que la siguiente función, T : N → N,
+es de orden O(log2(n)).
+T (n) = 3 · log2(n) + 2.
+
+> 2 . ¿Si T (n) ∈ O(log2(n)), entonces T (n) ∈ O(n)? Justifique la respuesta.
+
+> 3 . ¿Si T (n) ∈ O(log3(n)), entonces T (n) ∈ O(log2(n))? Justifique la respuesta
+
+
+**R1 :** T (n) = 3 · log2(n) + 2 es **O(log2(n))** porque para **k = 4**  y **n0 = 2** se cumple `T(n) <= k⋅log2(n)` para n > n0
+
+**R2 :** Sí, ```T(n) ∈ O(log2(n))``` implica ```T(n) ∈ O(n)```, porque **log2(n) < n** para n suficientemente grande.
+Por ejemplo, si ```T(n) <= k * log2(n)``` para un k y n grandes, entonces ```T(n) <= k⋅n``` también se cumple, ya que ```log2(n)``` **siempre es menor que n** para todo **n >= 1**.
+
+
+**R3 :** Sí, ```T (n) ∈ O(log3(n))``` implica ```T (n) ∈ O(log2(n))```, porque los logaritmos en diferentes bases solo cambian por una **constante multiplicativa**, es decir ```log3(n) = log2(n) / log2(3)``` lo que significa que los dos **crecen de la misma manera asintóticamente**.
+
+
+### Ejercicio 51
+
+> Estudie de forma comparativa entre ellas el crecimiento de las siguientes funciones reales de variable real
+
+```
+ 1. f0(x) = 1
+ 2. f1(x) = x
+ 3. f2(x) = x^2
+ 4. f3(x) = log2(x), y
+ 5. f4(x) = 2^x
+```
+
+1. `f0(x) = 1` : Es una **constante**, no importa cuánto crezca x, siempre vale 1. No tiene crecimiento.
+2. `f1(x) = x` : Es una funcion **lineal**, cuanto mas va creciendo **x**, mas crece **f1(x)**. Crece mas rapido que una constante, pero no mas que una cuadratica / exponencial.
+3. `f2(x) = x^2` : Es una funcion **cuadratica**, crece mucho mas rapido que una funcion lineal, porque **x^2** crece mucho mas rapido confome **x** vaya aumentando.
+4. `f3(x) = log2(x), y` : Es es una funcion **logarítmica**, es mas lenta que la lineal o cuadratica.
+5. `f4(x) = 2^x` : Es una funcion **exponencial**, es **la mas rapida** de todas ya que **f4(x)** se **duplica** cada vez que **x aumenta de 1**.
+
+### Ejercicio 52
+
+> Calcule la complejidad temporal asintótica del método f :
+
+```
+public static int f(int n) {
+    if (n == 0)
+        return 1;
+    else if (n < 0)
+        return -1;
+    else {
+        int m = 1 / f(n/2) + f(n/2);
+        return sumaNPrimeros(m);
+    }
+}
+```
+
+Analicemos los posibles casos:
+- Si n = 1 retornamos 1 , lo que implicaría O(1)
+- Si n < 0 retornamos -1 , lo que implicaría O(1)
+- En el caso recursivo: hacemos **dos llamadas recursivas** a `f(n/2)` (recurrencia **T(n) = 2T(n/2) + O(1)**) y luego realiza la operacion `1 / f(n/2) + f(n/2)` y finalmente llama a otro metodo `sumaNPrimeros(m)`.
+
+Suponiendo que es **m** es proporcional a **n**, `sumaNPrimeros(m)` depende de **m**, podriamos suponer que `sumaPrimeros(m)` es de complejidad **O(n^2)**, con lo cual la recurrencia total sería:
+
+`T(n) = 2T(n/2) + O(n^2)`
+
+Y por lo tanto la complejidad final sería de **O(n^2)**.
+
+### Ejercicio 53
+
+> La complejidad en el caso peor de la inserción en un arraylist es diferente si el array list está ordenado de si no lo está. ¿Es cierta esta afirmación? Justifique la respuesta.
+
+Si el **orden importa** (= si queremos mantener el ArrayList ordenado) entonces la complejidad en el peor caso es
+**O(n)** ya que necesitaríamos buscar la posición correcta y **desplazar elementos**.
+(PS: la **busqueda** en los elementos puede ser puede ser **O(log n)**, pero el **deplazamiento de elementos** sigue siendo O(n))
+
+Si el **orden no importa**, la complejidad es **O(1) al final** y **O(n) en otras posiciones** debido al desplazamiento de elementos.
+
+Con lo cual podemos decir que la afirmación de que en el **caso peor** de insercion en un ArrayList ordenado vs un ArrayList no ordenado es **diferente** es **falsa**, ya que para ambos casos la complejidad es **O(n)**.
+
+### Ejercicio 54
+> Suponga que una instrucción tarda en ejecutarse 10 ns, y que
+el tamaño de la entrada es n = 100, se pide calcular el tiempo requerido para
+los siguientes números de ejecuciones:
+
+```
+ 1. log(n)
+ 2. n
+ 3. nlog(n)
+ 4. n^2
+ 5. n^8 y
+ 6. 10^n
+```
+
+> Realice los cálculos anteriores, pero ahora bajo los siguientes supuestos:
+
+```
+1. n = 100.000
+2. n = 100.000 y el tiempo de instrucción (o bloque de instrucciones) 1
+ms
+```
+
+1. `log(n)` = log(100) = 2 * 10 ns = **200ns**
+1. `n` = 100 = 100 * 10ns = **1000ns o 1 microsegundo**
+1. `n * log(n)` = 100 * log(100) = 100 * 2 = 200 * 10 ns = **2000ns o 2 microsegundos**
+4. `n ^ 2` = 100 ^ 2 = 10000 * 10ns = **100000ns o 100 microsegundos**
+5. `n ^ 8 y` = (100 ^ 8) * 10 = 10^16 * 10 = **1^17 ns * y**
+6. `10^n` = 100 ^ 100 = 10^100 * 10 = **100^101 ns**
