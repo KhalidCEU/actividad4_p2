@@ -461,9 +461,36 @@ los siguientes números de ejecuciones:
 ms
 ```
 
-1. `log(n)` = log(100) = 2 * 10 ns = **200ns**
-1. `n` = 100 = 100 * 10ns = **1000ns o 1 microsegundo**
-1. `n * log(n)` = 100 * log(100) = 100 * 2 = 200 * 10 ns = **2000ns o 2 microsegundos**
-4. `n ^ 2` = 100 ^ 2 = 10000 * 10ns = **100000ns o 100 microsegundos**
-5. `n ^ 8 y` = (100 ^ 8) * 10 = 10^16 * 10 = **1^17 ns * y**
-6. `10^n` = 100 ^ 100 = 10^100 * 10 = **100^101 ns**
+1. `log(n)` = log(100) = 2 * 10 ns = **Z0 ns**
+1. `n` = 100 = 100 * 10ns = **1000 ns o 1 microsegundo**
+1. `n * log(n)` = 100 * log(100) = 100 * 2 = 200 * 10 ns = **2000 ns o 2 microsegundos**
+4. `n ^ 2` = 100 ^ 2 = 10000 * 10ns = **100000 ns o 100 microsegundos**
+5. `n ^ 8 y` = (100 ^ 8) y = 10^16 * 10ns * y = **10^17 ns * y**
+6. `10^n` = 10 ^ 100 = 10^100 * 10 ns = **10^101 ns** (computacionalmente infinito)
+
+**Suponiendo n = 100.000**
+
+1. `log(n)` = log(10^5) = 5 * 10ns = **50 ns**
+1. `n` = 10^5 = 10^5 * 10ns = **10^6 ns o 1 milisegundo**
+1. `n * log(n)` = 10^5 * log(10^5) = 10^5 * 5 * 10ns = 5 * 10^6 ns = **5 microsegundos**
+4. `n ^ 2` = 10^5 ^ 2 = 10^10 * 10ns = **10^11 ns o 100 segundos**
+5. `n ^ 8 y` = (10^5 ^ 8) * 10 = 10^40 * 10ns = **10^41 ns * y** (computacionalmente infinito)
+6. `10^n` = 10 ^ (10^5) = 10^100000 * 10ns= **10^100001 ns** (computacionalmente infinito)
+
+**Suponiendo n = 100.000 y tiempo de ejecución 1ms**
+
+1. `log(n)` = log(10^5) = 5 * 1ms = **5 ms**
+1. `n` = 10^5 = 10^5 * 1ms = **10^5 ms** o **100 segundos**
+1. `n * log(n)` = 10^5 * log(10^5) = 10^5 * 5 * 1ms = **500 segundos**
+4. `n ^ 2` = 10^5 ^ 2 = 10^10 * 1ms = **10^7 segundos**
+5. `n ^ 8 y` = (10^5 ^ 8) * 10 = 10^40 * 1ms = **10^37 segundos** (computacionalmente infinito)
+6. `10^n` = 10 ^ (10^5) = 10^100000 * 1ms = **10^99997 segundos** (computacionalmente infinito)
+
+
+### Ejercicio 55
+
+> Explique por qué el problema del ajedrez todavía no está resuelto.
+
+El problema del ajedrez todavía no está resulto ya que hay un número de **jugadas posibles por movimiento** tan grande  que computacionalmente es imposible hacer una gran cantidad de calculos en tan poco tiempo para encontrar la solución perfecta. En terminos de **complejidad**, podemos decir que el crecimiento es **exponencial** (el numero de jugadas posibles por movimiento se multiplica).
+
+PS : Por lo menos con el **hardware** que tenemos **hoy en día**, no es posible. Puede que el día que tengamos [ordenadores cuanticos](https://es.wikipedia.org/wiki/Computaci%C3%B3n_cu%C3%A1ntica) eso sea algo muy facil de resolver ;)
